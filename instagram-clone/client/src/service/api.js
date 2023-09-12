@@ -203,7 +203,7 @@ export async function deleteComment(id) {
 
 // 1. 프로필 수정 요청
 export async function updateProfile(editedProfile) {
-  const res = await fetch(`${server}/profiles`, {
+  const res = await fetch(`${server}/users/user`, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ export async function updateProfile(editedProfile) {
 
 // 2. 프로필 사진 수정 요청
 export async function updateAvatar(formData) {
-  const res = await fetch(`${server}/profiles`, {
+  const res = await fetch(`${server}/users/user`, {
     method: "PUT",
     headers: {
       "Authorization":  getBearerToken()

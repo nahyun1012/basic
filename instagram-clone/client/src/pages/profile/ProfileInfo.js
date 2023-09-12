@@ -72,7 +72,7 @@ export default function ProfileInfo({
         </Link>
       </li>
       <li className="w-1/3">
-        <Link to={`/profile/${username}/following`} className="block text-sm">
+        <Link to={`/profiles/${username}/following`} className="block text-sm">
           팔로잉
           {" "}
           <span className="font-semibold">

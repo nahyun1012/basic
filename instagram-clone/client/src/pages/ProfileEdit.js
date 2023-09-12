@@ -12,7 +12,7 @@ export default function ProfileEdit() {
   console.log(user);
 
   // 폼 제출버튼 disabled 처리용 객체
-  const isEqual = {
+  const isEqual = { // 수정을 했울 때 제출버튼이 활성화 된다
     name: user.name === newName,
     bio: user.bio === newBio,
   };
@@ -20,6 +20,22 @@ export default function ProfileEdit() {
   // 폼 제출처리
   async function handleSubmit(e) {
     try {
+      e.preventDefault();
+      
+      // 수정한 프로필 정보
+      const editedProfile = {
+        name: newName,
+        bio: newBio
+      };
+
+      // 서버 요청
+      const { user } = await updateProfile(editedProfile);
+
+      // 요청 업데이트
+      setUser(user);
+
+      // 성공 메시지
+      alert('수정되었습니다');
 
     } catch(error) {
       alert(error);
@@ -27,7 +43,30 @@ export default function ProfileEdit() {
   }
 
   // 파일 처리
-  async function handleFile(e) {}
+  async function handleFile(e) {
+    try {
+      // 유저가 선택한 파일
+      const file = e.target.files[0];
+
+      // 폼데이터 타입: 서버에 파일을 전송할 떼 사용한다
+      const formData = new FormData();
+
+      // 폼데이터에 유저가 선택한 파일을 저장한다
+      formData.append("avatar", file);
+
+      // 서버 요청
+      const { user } = await updateAvatar(formData);
+
+      // 유저 업데이트
+      setUser(user);
+
+      // 성공 메시지
+      alert("수정되었습니다");
+
+    } catch(error) {
+      alert(error)
+    }
+  }
 
   // 타이틀 업데이트
   useEffect(() => {
@@ -59,6 +98,51 @@ export default function ProfileEdit() {
       </div>
 
       {/* 폼 */}
+      <form onSubmit={handleSubmit}>
+        {/* 이름 입력란 */}
+        <div className="mb-2">
+          <label htmlFor="name" className="block font-semibold">이름</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            className="border px-2 py-1 rounded w-full"
+            value={newName}
+            onChange={({ target }) => setNewName(target.value)}
+          />
+        </div>
+
+        {/* 자기소개 입력란 */}
+        <div className="mb-2">
+          <label htmlFor="bio" className="block font-semibold">자기소개</label>
+          <textarea
+            id="bio"
+            rows="3"
+            name="bio"
+            className="border px-2 py-1 rounded w-full resize-none"
+            value={newBio}
+            onChange={({ target }) => setNewBio(target.value)}
+          />
+        </div>
+
+        {/* 제출 및 취소 버튼 */}
+        <div className="flex">
+          <button
+            type="submit"
+            className="text-sm font-semibold bg-gray-200 rounded-lg px-4 py-2 disabled:opacity-[0.2]"
+            disabled={isEqual.name && isEqual.bio}
+          >
+            저장
+          </button>
+
+          <Link
+            to={`/profiles/${user.username}`}
+            className="text-sm font-semibold bg-gray-200 rounded-lg px-4 py-2 ml-2"
+          >
+            취소
+          </Link>
+        </div>
+      </form>
     </div>
   )
 
