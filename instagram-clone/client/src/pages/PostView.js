@@ -31,23 +31,68 @@ export default function PostView() {
   }
 
   // 좋아요 처리
-  async function handleLike(id) {}
+  async function handleLike(id) {
+    try {
+      // 좋아요 요청
+      await likePost(id)
+
+      const updatePost = {
+        ...post,
+        liked: true,
+        likesCount: post.likesCount + 1
+      }
+
+      setPost(updatePost);
+
+    } catch(error) {
+      alert(error)
+    }
+  }
 
   // 좋아요 취소 처리
-  async function handleUnlike(id) {}
+  async function handleUnlike(id) {
+    try {
+      // 좋아요 취소 요청
+      await unlikePost(id);
+
+      const updatedPost = {
+        ...post,
+        liked:  false,
+        likesCount: post.likesCount - 1
+      }
+
+      setPost(updatedPost);
+
+    } catch(error) {
+      alert(error)
+    }
+  }
 
   // 게시물 삭제 처리
-  async function handleDelete(id) {}
+  async function handleDelete(id) {
+    try {
+      // 게시물 삭제 요청
+      await deletePost(id);
+
+      // 삭제 후 피드로 이동
+      navigate('/', {replace: true });
+
+    } catch(error) {
+      alert(error)
+    } 
+  }
 
   if (!post) {
     return <Spinner />
   }
 
   return (
+    // 보여지는 부분 처리
     <PostTemplate
       id={post.id}
       username={post.user.username}
-      avatarUrl={post.photoUrls}
+      avatarUrl={post.user.avatarUrl}
+      photoUrls={post.photoUrls}
       caption={post.caption}
       likesCount={post.likesCount}
       commentCount={post.commentCount}
