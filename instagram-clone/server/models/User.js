@@ -56,7 +56,7 @@ userSchema.virtual('isFollowing', {
 	ref: 'Following', // Following 모델과 조인
 	localField: '_id',
 	foreignField: 'following',
-	count: true
+	justOne: true
 })
 
 // 오퍼레이션(Operation) - 모델의 데이터 처리 기능

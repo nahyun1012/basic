@@ -13,7 +13,16 @@ export default function Comment({
   const [modalOpen, setModalOpen] = useState(false);
 
   // 삭제 버튼 클릭 처리
-  async function handleDeleteClick() {}
+  async function handleDeleteClick() {
+    try {
+      await handleDelete(id);
+      
+      setModalOpen(false);
+
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   // 모달 닫기
   function handleOverlay(e) {

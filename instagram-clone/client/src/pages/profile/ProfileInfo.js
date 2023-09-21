@@ -34,7 +34,7 @@ export default function ProfileInfo({
   // 팔로우 버튼
   const followButton = (
     <button
-      className="ml-2 bg-blue-500 text-white text-sm px-4 py-2 font-semibold p-2 rounded-lg"
+      className="ml-2 bg-blue-500 text-white text-sm px-4 py-2 font-semibold m-2 rounded-lg"
       onClick={handleFollow}
     >
       팔로우
@@ -43,7 +43,7 @@ export default function ProfileInfo({
 
   const unfollowButton =(
     <button
-      className="ml-2 bg-blue-500 text-white text-sm px-4 py-2 font-semibold p-2 rounded-lg"
+      className="ml-2 bg-gray-200 text-white text-sm px-4 py-2 font-semibold m-2 rounded-lg"
       onClick={handleUnfollow}
     >
       팔로잉

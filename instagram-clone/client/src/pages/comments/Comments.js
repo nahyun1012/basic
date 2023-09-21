@@ -45,10 +45,19 @@ export default function Comments() {
   }
 
   // 댓글 삭제
-  async function handleDelete() {}
+  async function handleDelete(id) {
+    // 서버 요청
+    await deleteComment(id);
+
+    // comments 업데이트
+    const remainingComments = comments.filter(comment => comment.id !== id);
+
+    setComments(remainingComments);
+  }
 
   // 댓글 목록
   const commentList = comments.map(comment => (
+    // 각각의 댓글
     <Comment
       key={comment.id}
       id={comment.id}
@@ -80,5 +89,4 @@ export default function Comments() {
       {error && <p className="text-red-500">{error.message}</p>}
     </div>
   )
-
 }
