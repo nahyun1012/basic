@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getPublicData } from '../service/api';
+import KakaoMap from './KakaoMap';
 
 export default function Dashboard() {
   const [error, setError] = useState(null);
@@ -13,7 +14,7 @@ export default function Dashboard() {
       const data = await getPublicData();
       console.log(data);
       
-      setCrime(data.items.item);
+      setCrime(data.data);
       setCrimeCount(data.totalCount);
       
     } catch(error) {
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
   return (
     <>
-      ..
+      <KakaoMap />
     </>
   )
 }
