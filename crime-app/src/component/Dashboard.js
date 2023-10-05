@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import { getPublicData } from '../service/api';
-import KakaoMap from './KakaoMap';
+
+import Murders from './Murders'
 
 export default function Dashboard() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [crime, setCrime] = useState([]);
+  const [crimes, setCrimes] = useState([]);
   const [crimeCount, setCrimeCount] = useState(0);
 
   
   async function fetchData() {
     try {
       const data = await getPublicData();
-      console.log(data);
+      // console.log(data);
       
-      setCrime(data.data);
+      setCrimes(data.data);
       setCrimeCount(data.totalCount);
       
     } catch(error) {
@@ -40,9 +41,15 @@ export default function Dashboard() {
     )
   }
 
+
+
+  
+
+
   return (
     <>
-      <KakaoMap />
+      <Murders crimes={crimes} />
+     
     </>
   )
 }
