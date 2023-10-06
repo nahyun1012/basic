@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getPublicData } from '../service/api';
+import KakaoMap from './KakaoMap';
+import RechartBar from './RechartBar';
+import f from '../utils/f';
 
-import Murders from './Murders'
-
-export default function Dashboard() {
+export default function Dashboard({ type }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [crimes, setCrimes] = useState([]);
@@ -13,7 +14,7 @@ export default function Dashboard() {
   async function fetchData() {
     try {
       const data = await getPublicData();
-      // console.log(data);
+      console.log(data);
       
       setCrimes(data.data);
       setCrimeCount(data.totalCount);
@@ -41,15 +42,16 @@ export default function Dashboard() {
     )
   }
 
-
-
-  
-
+  const countPerCity = f(crimes, type);
 
   return (
     <>
-      <Murders crimes={crimes} />
-     
+      <KakaoMap 
+        countPerCity={countPerCity} 
+      /> 
+      <RechartBar 
+        countPerCity={countPerCity} 
+      />
     </>
   )
 }

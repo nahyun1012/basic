@@ -1,36 +1,29 @@
 import { DISTRICTS  } from './constants/districts';
-import { YEARS } from './constants/years';
+import KakaoMap from './component/KakaoMap';
 import { useState, useEffect } from 'react';
 import Dashboard from './component/Dashboard';
+import TYPES from './constants/types';
+
+console.log(TYPES)
 
 export default function App() {
+  const [type, setType] = useState("살인기수")
 
-  const districtList = DISTRICTS.map(district => (
-    <option key={district.id} value={district.id}>
-      {district.city}
-    </option>
-  ))
-
-  const yearList = YEARS.map(year => (
-    <option key={year} value={year}>
-      {year}
-    </option>
+  const typeOptions = TYPES.map(type => (
+    <option key={type.name} value={type.name}>{type.name}</option>
   ))
   
   return (
     <>
-      <h1>지역별 범죄 발생 통계</h1>
+      <p className="text-2xl text-center">지역별 범죄 발생 통계</p>
       <div>
-        <select>
-          {districtList}
-        </select>
-        <select>
-          {yearList}
+        <select onChange={(e) => setType(e.target.value)}>
+          {typeOptions}
         </select>
       </div>
 
       <main>
-        <Dashboard />
+        <Dashboard type={type} />
       </main>
     </>
   )

@@ -1,99 +1,58 @@
 import { useState, useEffect } from 'react';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 
-export default function KakaoMap({ murderCountPerCity }) {
+export default function KakaoMap({ 
+  countPerCity,
+}) {
   const [positions, setPositions] = useState([]);
-  const position = []
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  const 강원 = { lat: 37.7457159751289, lng: 128.83147107603173 };
-  const 경기 = { lat: 37.495037669825884, lng: 127.49235611185203 };
-  const 경남 = { lat: 35.544799518803295, lng: 128.17507587575008 };
-  const 경북 = { lat: 36.303072627570224, lng: 128.90595333593285 };
-  const 광주 = { lat: 35.189655952462886, lng: 126.8277842963087 };
-  const 대구 = { lat: 35.84921361555613, lng: 128.55630734608124 };
-  const 대전 = { lat: 36.373504038630905, lng: 127.39756668275123 };
-  const 부산 = { lat: 35.263570062783934, lng: 129.0911434614301 };
-  const 서울 = { lat: 37.5763930844039, lng: 126.99331777887316 };
-  const 세종 = { lat: 36.58754216625766, lng: 127.24996199654046 };
-  const 울산 = { lat: 35.59986014786369, lng: 129.2283618807341 };
-  const 인천 = { lat: 37.60806181084386, lng: 126.6888929888616 };
-  const 전남 = { lat: 34.97493557164273, lng: 127.04373952001379 };
-  const 전북 = { lat: 35.83286802285763, lng: 127.13370117040395 };
-  const 제주 = { lat: 33.486156007586764, lng: 126.81524999262011 };
-  const 충남 = { lat: 36.76053901433834, lng: 126.80288040037843 };
-  const 충북 = { lat: 37.177561559002385, lng: 127.70361852770343 };
+  console.log(new Date().toLocaleString())
 
-  for (var i = 0; i < murderCountPerCity.강원; i++) {
-    position.push(강원);
-  }
+  const cities = [
+    { name: "강원", crd: { lat: 37.7457159751289, lng: 128.83147107603173 }},
+    { name: "경기", crd: { lat: 37.495037669825884, lng: 127.49235611185203 }},
+    { name: "경남", crd: { lat: 35.544799518803295, lng: 128.17507587575008 }},
+    { name: "경북", crd: { lat: 36.303072627570224, lng: 128.90595333593285 }},
+    { name: "광주", crd: { lat: 35.189655952462886, lng: 126.8277842963087 }},
+    { name: "대구", crd: { lat: 35.84921361555613, lng: 128.55630734608124 }},
+    { name: "대전", crd: { lat: 36.373504038630905, lng: 127.39756668275123 }},
+    { name: "부산", crd: { lat: 35.263570062783934, lng: 129.0911434614301 }},
+    { name: "서울", crd: { lat: 37.5763930844039, lng: 126.99331777887316 }},
+    { name: "세종", crd: { lat: 36.58754216625766, lng: 127.24996199654046 }},
+    { name: "울산", crd: { lat: 35.59986014786369, lng: 129.2283618807341 }},
+    { name: "인천", crd: { lat: 37.60806181084386, lng: 126.6888929888616 }},
+    { name: "전남", crd: { lat: 34.97493557164273, lng: 127.04373952001379 }},
+    { name: "전북", crd: { lat: 35.83286802285763, lng: 127.13370117040395 }},
+    { name: "제주", crd: { lat: 33.486156007586764, lng: 126.81524999262011 }},
+    { name: "충남", crd: { lat: 36.76053901433834, lng: 126.80288040037843 }},
+    { name: "충북", crd: { lat: 37.177561559002385, lng: 127.70361852770343 }},
+  ]
 
-  for (var i = 0; i < murderCountPerCity.경기; i++) {
-    position.push(경기);
-  }
+  function f() {
+    setIsLoaded(false);
 
-  for (var i = 0; i < murderCountPerCity.경남; i++) {
-    position.push(경남);
-  }
+    const arr = []
 
-  for (var i = 0; i < murderCountPerCity.경북; i++) {
-    position.push(경북);
-  }
+    cities.forEach(city => {
+      let perCount = countPerCity[city.name];
+  
+      for (var i = 0; i < perCount; i++) {
+        arr.push(city.crd);
+      }
+    })
 
-  for (var i = 0; i < murderCountPerCity.광주; i++) {
-    position.push(광주);
-  }
-
-  for (var i = 0; i < murderCountPerCity.대구; i++) {
-    position.push(대구);
-  }
-
-  for (var i = 0; i < murderCountPerCity.대전; i++) {
-    position.push(대전);
-  }
-
-  for (var i = 0; i < murderCountPerCity.부산; i++) {
-    position.push(부산);
-  }
-
-  for (var i = 0; i < murderCountPerCity.서울; i++) {
-    position.push(서울);
-  }
-
-  for (var i = 0; i < murderCountPerCity.세종; i++) {
-    position.push(세종);
-  }
-
-  for (var i = 0; i < murderCountPerCity.울산; i++) {
-    position.push(울산);
-  }
-
-  for (var i = 0; i < murderCountPerCity.인천; i++) {
-    position.push(인천);
-  }
-
-  for (var i = 0; i < murderCountPerCity.전남; i++) {
-    position.push(전남);
-  }
-
-  for (var i = 0; i < murderCountPerCity.전북; i++) {
-    position.push(전북);
-  }
-
-  for (var i = 0; i < murderCountPerCity.제주; i++) {
-    position.push(제주);
-  }
-
-  for (var i = 0; i < murderCountPerCity.충남; i++) {
-    position.push(충남);
-  }
-
-  for (var i = 0; i < murderCountPerCity.충북; i++) {
-    position.push(충북);
+    setPositions(arr)
+    setIsLoaded(true)
   }
 
   useEffect(() => {
-    setPositions(position);
-  },[])
+    f()
+  }, [countPerCity]) 
+
+  if (!isLoaded) {
+    return <p>...</p>
+  }
 
   return (
     <Map
@@ -113,7 +72,7 @@ export default function KakaoMap({ murderCountPerCity }) {
       >
         {positions.map((pos) => (
           <MapMarker
-            key={`${pos.lat}-${pos.lng}`}
+            key={Math.random()}
             position={{
               lat: pos.lat,
               lng: pos.lng,
