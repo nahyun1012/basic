@@ -60,11 +60,8 @@ export default function KakaoMap({
         lat: 36.2683,
         lng: 127.6358,
       }}
-      style={{
-        width: "100%",
-        height: "450px",
-      }}
-      level={13}
+      className="h-[1000px] w-full"
+      level={12}
     >
       <MarkerClusterer
         averageCenter={true}

@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default function Example({ countPerCity }) {
+export default function RechartBar({ countPerCity }) {
 
   const data = [];
 
   for (let key in countPerCity) {
-    // console.log(key, murderCountPerCity[key])
+    // console.log(key, countPerCity[key])
 
     data.push({
       name: key,
-      uv: countPerCity[key],
+      사고건수: countPerCity[key],
     })
   }
 
@@ -29,7 +29,7 @@ export default function Example({ countPerCity }) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          <Bar dataKey="사고건수" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     </div>
